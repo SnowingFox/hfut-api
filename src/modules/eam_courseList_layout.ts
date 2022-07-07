@@ -16,7 +16,7 @@ export default function(query: IQuery) {
     data: {
       timeTableLayoutId: id,
     },
-  }, query.cookie)
+  }, query)
 
   return {
     code: 200,

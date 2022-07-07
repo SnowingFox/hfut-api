@@ -41,7 +41,7 @@ function parser(data: string): object {
 }
 
 export default async function(query: IQuery) {
-  const res = await request(url, {}, query.cookie)
+  const res = await request(url, {}, query)
   return {
     code: 200,
     msg: '获取获取一卡通信息成功',

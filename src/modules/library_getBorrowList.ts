@@ -7,7 +7,7 @@ const baseUrl = 'https://webvpn.hfut.edu.cn/http-8080/77726476706e69737468656265
 const url = `${baseUrl}/reader/book_lst.php`
 
 export default async function(query: IQuery) {
-  const res = await request(url, { method: 'get', maxRedirects: 5 }, query.cookie)
+  const res = await request(url, { method: 'get', maxRedirects: 5 }, query)
 
   const parserBookList = (body: string) => {
     const $ = cheerio.load(body)

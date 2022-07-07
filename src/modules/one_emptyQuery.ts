@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios'
 import { IQuery } from '../server'
 import request from '../shared/request'
 
@@ -49,7 +48,7 @@ export default async function(query: IQuery) {
       start_date: '2022-06-27',
       end_date: '2022-06-27',
     },
-  }, query.cookie)
+  }, query)
 
   return res
 }

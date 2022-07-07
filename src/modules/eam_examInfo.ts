@@ -30,14 +30,14 @@ const baseUrl = `${redirectUrl}/info`
 export default async function(query: IQuery) {
   let res = {} as any
   try {
-    const prePage = await request(redirectUrl, {}, query.cookie)
+    const prePage = await request(redirectUrl, {}, query)
     const code = parsePreStudentPage(prePage.body)
-    const page = await request(`${baseUrl}/${code}`, { maxRedirects: 1 }, query.cookie)
+    const page = await request(`${baseUrl}/${code}`, { maxRedirects: 1 }, query)
     res = page
   } catch (err) {
     const code = (err as AxiosError).response!.headers.location.replace('/http/77726476706e69737468656265737421faef469034247d1e760e9cb8d6502720ede479/eams5-student/for-std/exam-arrange/info/', '')
     const url = `${baseUrl}/${code}`
-    res = await request(url, { maxRedirects: 1 }, query.cookie)
+    res = await request(url, { maxRedirects: 1 }, query)
   }
 
   return {

@@ -50,7 +50,7 @@ export default async function(query: IQuery) {
 
   let code = ''
   try {
-    const page = await request(url, { }, query.cookie)
+    const page = await request(url, { }, query)
     code = parsePreStudentPage(page.body)
   } catch (err) {
     code = (err as AxiosError).response!.headers.location.replace('/http/77726476706e69737468656265737421faef469034247d1e760e9cb8d6502720ede479/eams5-student/for-std/grade/sheet/semester-index/', '')
@@ -58,7 +58,7 @@ export default async function(query: IQuery) {
 
   const iframeUrl = `https://webvpn.hfut.edu.cn/http/77726476706e69737468656265737421faef469034247d1e760e9cb8d6502720ede479/eams5-student/for-std/grade/sheet/info/${code}?semester=${semester}`
 
-  const html = await request(iframeUrl, {}, query.cookie)
+  const html = await request(iframeUrl, {}, query)
 
   return {
     code: 200,

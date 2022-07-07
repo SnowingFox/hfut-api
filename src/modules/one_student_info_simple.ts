@@ -16,5 +16,5 @@ export default function(query: IQuery) {
       authorization: token,
     },
     maxRedirects: 5,
-  }, query.cookie)
+  }, query)
 }

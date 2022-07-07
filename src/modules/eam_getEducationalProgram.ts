@@ -11,13 +11,13 @@ export default async function(query: IQuery) {
   let res = {} as any
 
   try {
-    const prePage = await request(firstUrl, {}, query.cookie)
+    const prePage = await request(firstUrl, {}, query)
     const code = parsePreStudentPage(prePage.body)
-    res = await request(`${baseUrl}/${code}`, {}, query.cookie)
+    res = await request(`${baseUrl}/${code}`, {}, query)
   } catch (err) {
     const code = (err as AxiosError).response!.headers.location.replace('/http/77726476706e69737468656265737421faef469034247d1e760e9cb8d6502720ede479/eams5-student/for-std/program-completion-preview/info/', '')
     const url = `${baseUrl}/${code}`
-    res = await request(url, {}, query.cookie)
+    res = await request(url, {}, query)
   }
 
   return {

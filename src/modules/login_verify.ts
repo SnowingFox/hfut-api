@@ -29,7 +29,7 @@ export default async function(query: IQuery) {
     }
   }
   const now = Date.now()
-  const res1 = await request(url1, {})
+  const res1 = await request(url1, {}, query)
 
   let cookie1 = getCookie(res1.cookie as string[])
 
@@ -38,9 +38,11 @@ export default async function(query: IQuery) {
     return
   }
 
-  await request(url2, { params: { _: now }, maxRedirects: 5 }, cookie1)
-  await request(url3, {}, cookie1)
-  const res4 = await request(url4, {}, cookie1)
+  const payload = { cookie: cookie1 }
+
+  await request(url2, { params: { _: now }, maxRedirects: 5 }, payload)
+  await request(url3, {}, payload)
+  const res4 = await request(url4, {}, payload)
 
   // 加密密码
   const saltKey = (res4.body as string).split('; ')[1].split('=').pop() as string
@@ -48,7 +50,7 @@ export default async function(query: IQuery) {
 
   // auth验证
   const authFlagUrl = `https://webvpn.hfut.edu.cn/http/77726476706e69737468656265737421f3f652d22f367d44300d8db9d6562d/cas/policy/checkUserIdenty?vpn-12-o1-cas.hfut.edu.cn=&username=${username}&password=${encryptedPwd}&_=${now}`
-  await request(authFlagUrl, {}, cookie1)
+  await request(authFlagUrl, {}, payload)
 
   let redirectRes: any = { body: '' }
   try {
@@ -63,7 +65,9 @@ export default async function(query: IQuery) {
         password: encryptedPwd,
         geolocation: '',
       },
-    }, cookie1)
+    }, {
+      cookie: cookie1,
+    })
   } catch (err) {
     redirectRes.body = (err as AxiosError).response!.data
   }

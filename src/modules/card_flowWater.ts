@@ -106,7 +106,7 @@ export default async function(query: IQuery) {
     method: 'GET',
     maxRedirects: 10,
     responseType: 'arraybuffer',
-  }, query.cookie)
+  }, query)
 
   const account = parserAccount(iconv.decode(res0.body as Buffer, 'gbk') as string)
 
@@ -118,7 +118,7 @@ export default async function(query: IQuery) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
     },
-  }, query.cookie)
+  }, query)
 
   await request(url2, {
     method: 'POST',
@@ -128,7 +128,7 @@ export default async function(query: IQuery) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
     },
-  }, query.cookie)
+  }, query)
 
   let res2
   res2 = await request(url3, {
@@ -138,7 +138,7 @@ export default async function(query: IQuery) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
     },
-  }, query.cookie)
+  }, query)
 
   if (pageNum !== 1) {
     res2 = await request(url4, {
@@ -149,7 +149,7 @@ export default async function(query: IQuery) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
       },
-    }, query.cookie)
+    }, query)
   }
 
   res2 = iconv.decode(res2.body as Buffer, 'gbk')

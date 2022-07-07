@@ -64,22 +64,22 @@ export default async function(query: IQuery) {
 
   let code = ''
   try {
-    await request(url, {}, query.cookie)
+    await request(url, {}, query)
   } catch (err) {
     const uri = (err as AxiosError).response!.headers.location.split('/')
     code = uri[uri.length - 1]
   }
 
-  console.log(query.cookie)
+  console.log(query)
 
   // 处理预科生
   if (!code.length) {
-    const preStdPage = await request(url, {}, query.cookie)
+    const preStdPage = await request(url, {}, query)
     code = parsePreStudentPage(preStdPage.body)
   }
 
   const url1 = `${base_url}/eams5-student/for-std/student-info/info/${code}`
-  const res = await request(url1, { maxRedirects: 1 }, query.cookie)
+  const res = await request(url1, { maxRedirects: 1 }, query)
   const info = parseStudentInfo(res.body as string)
 
   return {

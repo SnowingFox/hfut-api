@@ -1,4 +1,5 @@
 import * as cheerio from 'cheerio'
+import { query } from 'express'
 import request from '../shared/request'
 
 interface SchoolBusItem {

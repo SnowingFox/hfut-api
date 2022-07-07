@@ -30,12 +30,12 @@ export default async function(query: IQuery) {
 
   let code = ''
   try {
-    const prePage = await request(url, { }, query.cookie)
+    const prePage = await request(url, { }, query)
     code = parsePreStudentPage(prePage.body)
   } catch (err) {
     code = (err as AxiosError).response!.headers.location.replace('/http/77726476706e69737468656265737421faef469034247d1e760e9cb8d6502720ede479/eams5-student/for-std/student-info/info/', '')
   } finally {
-    res = await request(`https://webvpn.hfut.edu.cn/http/77726476706e69737468656265737421faef469034247d1e760e9cb8d6502720ede479/eams5-student/for-std/student-info/info/${code}`, { }, query.cookie)
+    res = await request(`https://webvpn.hfut.edu.cn/http/77726476706e69737468656265737421faef469034247d1e760e9cb8d6502720ede479/eams5-student/for-std/student-info/info/${code}`, { }, query)
   }
 
   const $ = cheerio.load(res.body)
